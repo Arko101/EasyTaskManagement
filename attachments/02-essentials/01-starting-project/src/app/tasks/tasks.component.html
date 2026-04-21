@@ -1,10 +1,15 @@
 
+@if(isAddingTask){
+    <app-new-task (cancelAddTask)="onClickCancelAddTask()"/>
+}
+
+
 <section id="tasks">
 
         <header>
             <h2>Tasks for {{name}}</h2>
             <menu>
-                <button>Add Task</button>
+                <button (click)="onClickAddTask()">Add Task</button>
             </menu>
         </header>
             
