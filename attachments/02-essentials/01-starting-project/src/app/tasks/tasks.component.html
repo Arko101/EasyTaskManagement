@@ -1,6 +1,6 @@
 
 @if(isAddingTask){
-    <app-new-task (cancelAddTask)="onClickCancelAddTask()"/>
+    <app-new-task (cancelAddTask)="onClickCancelAddTask() " (addTask)="onClickCreateTask($event)"/>
 }
 
 
