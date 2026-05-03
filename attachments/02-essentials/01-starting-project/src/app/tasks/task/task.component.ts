@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 interface Task {
   id: string;
@@ -12,7 +13,7 @@ interface Task {
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
 })

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input , input, Output } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { NewTaskComponent } from "./new-task/new-task.component";
-import { NewTaskData } from './new-task/new-task-model';
-
+import { type NewTaskData } from './new-task/new-task-model';
+import { TasksService } from './tasks.service';
 
 
 
@@ -18,42 +18,18 @@ export class TasksComponent {
 @Input({required: true}) selectedUserId!: string;
 @Input({required: true}) name?: string;
 isAddingTask= false;
+//private tasksService = new TasksService(); -> bad approch, we should not create service instances manually, instead we should use dependency injection, which is a core concept in Angular and allows us to manage dependencies in a more efficient and scalable way. By using dependency injection, we can easily swap out implementations of services, which is especially useful for testing and for managing different environments (e.g., development vs production).
 
-
-dummyTasks = [
-  {
-    id: 't1',
-    userId: 'u1',
-    title: 'Master Angular',
-    summary:
-      'Learn all the basic and advanced features of Angular & how to apply them.',
-    dueDate: '2025-12-31',
-  },
-  {
-    id: 't2',
-    userId: 'u3',
-    title: 'Build first prototype',
-    summary: 'Build a first prototype of the online shop website',
-    dueDate: '2024-05-31',
-  },
-  {
-    id: 't3',
-    userId: 'u3',
-    title: 'Prepare issue template',
-    summary:
-      'Prepare and describe an issue template which will help with project management',
-    dueDate: '2024-06-15',
-  },
-]
+constructor(private tasksService: TasksService) {}
 
 
 
 get assignedTasks() {
-  return this.dummyTasks.filter(task => task.userId === this.selectedUserId);
+  return this.tasksService.getAsssignedTasks(this.selectedUserId);
 }
 
 onCompleteTask(id: string) {
-  this.dummyTasks = this.dummyTasks.filter((task) => task.id !== id);
+  this.tasksService.removeTask(id);
 }
 
 
@@ -66,14 +42,7 @@ onClickCancelAddTask() {
 }
 
 onClickCreateTask(newTaskData: NewTaskData) {
-  this.dummyTasks.push({
-              id: new Date().getTime().toString(),
-              userId: this.selectedUserId,
-              title: newTaskData.title,
-              summary: newTaskData.summary,
-              dueDate: newTaskData.dueDate
-  });
-
+  this.tasksService.addTask(this.selectedUserId, newTaskData);
   this.isAddingTask = false;
 }
 }
