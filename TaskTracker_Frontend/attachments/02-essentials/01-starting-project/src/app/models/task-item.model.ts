@@ -1,7 +1,8 @@
 export interface TaskItem {
-    id: number;
-    title: string;
-    summary: string;
-    dueDate: string;
-    completed: boolean;
+  id: number;
+  userId: number;
+  title: string;
+  summary: string;
+  dueDate: string;
+  completed?: boolean;
 }

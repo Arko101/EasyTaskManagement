@@ -2,31 +2,25 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 interface Task {
-  id: string;
-  userId: string;
+  id: number;
+  userId: number;
   title: string;
   summary: string;
   dueDate: string;
 }
-
 
 @Component({
   selector: 'app-task',
   standalone: true,
   imports: [DatePipe],
   templateUrl: './task.component.html',
-  styleUrl: './task.component.css'
+  styleUrl: './task.component.css',
 })
 export class TaskComponent {
-  @Input({required: true}) task!: Task;
-  @Output() complete = new EventEmitter<string>();
-
+  @Input({ required: true }) task!: Task;
+  @Output() complete = new EventEmitter<number>();
 
   onCompleteTask() {
     this.complete.emit(this.task.id);
   }
-
-
-
-
 }

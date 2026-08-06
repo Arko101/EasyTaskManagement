@@ -1,26 +1,23 @@
-
-@if(isAddingTask){
-    <app-new-task (cancelAddTask)="onClickCancelAddTask() " (addTask)="onClickCreateTask($event)"/>
+@if (isAddingTask) {
+  <app-new-task
+    (cancelAddTask)="onClickCancelAddTask()"
+    (addTask)="onClickCreateTask($event)"
+  />
 }
 
-
 <section id="tasks">
+  <header>
+    <h2>Tasks for {{ name }}</h2>
+    <menu>
+      <button (click)="onClickAddTask()">Add Task</button>
+    </menu>
+  </header>
 
-        <header>
-            <h2>Tasks for {{name}}</h2>
-            <menu>
-                <button (click)="onClickAddTask()">Add Task</button>
-            </menu>
-        </header>
-            
-        <ul>
-            @for (task of assignedTasks; track task) {
-                <li>
-                    <app-task [task]="task" (complete)="onCompleteTask($event)"/>
-                </li>
-            }
-        </ul>
+  <ul>
+    @for (task of assignedTasks; track task.id) {
+      <li>
+        <app-task [task]="task" (complete)="onCompleteTask($event)" />
+      </li>
+    }
+  </ul>
 </section>
-
-        
-
